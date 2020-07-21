@@ -161,15 +161,15 @@ namespace raycaster2
 
         public void draw()
         {
-            StringBuilder outp = new StringBuilder();
+            char[] outp = new char[winWidth * winHeight];
             for (int row = 0; row < winHeight; row++)
             {
                 for (int col = 0; col < winWidth; col++)
                 {
-                    outp.Insert(row * winWidth + col, buffer[row, col]);
+                    outp[row * winWidth + col] = buffer[row, col];
                 }
             }
-            ConsoleHelper.Write(outp.ToString(), (uint)(winHeight * winWidth));
+            ConsoleHelper.Write(new string(outp), (uint)(winHeight * winWidth));
         }
 
         private void writeToBuffer(string str, int x, int y)
