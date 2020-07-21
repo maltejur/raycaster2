@@ -130,10 +130,10 @@ public static class ConsoleHelper
 
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
     static public extern bool WriteConsoleOutputCharacter(
-        IntPtr hConsoleOutput, 
-        string lpCharacter, 
-        uint nLength, 
-        COORD dwWriteCoord, 
+        IntPtr hConsoleOutput,
+        string lpCharacter,
+        uint nLength,
+        COORD dwWriteCoord,
         out uint lpNumberOfCharsWritten
     );
 
@@ -151,8 +151,11 @@ public static class ConsoleHelper
     static public COORD GetConsoleSize()
     {
         GetConsoleScreenBufferInfo(consoleHandle, out screenBufferInfo);
-        return screenBufferInfo.dwSize;
+        int columns = screenBufferInfo.srWindow.Right - screenBufferInfo.srWindow.Left + 1;
+        int rows = screenBufferInfo.srWindow.Bottom - screenBufferInfo.srWindow.Top + 1;
+        return new COORD((short)columns, (short)rows);
     }
+
 
     static public void InitConsoleOutput()
     {
