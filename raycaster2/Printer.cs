@@ -73,7 +73,7 @@ namespace raycaster2
                     {
                         continue;
                     }
-                    if(testPoint.Y < 0 && testPoint.X < 0 && testPoint.Y >= map.height && testPoint.X >= map.width)
+                    if(testPoint.Y < 0 || testPoint.X < 0 || testPoint.Y >= map.height || testPoint.X >= map.width)
                     {
                         continue;
                     }
