@@ -17,7 +17,6 @@ namespace raycaster2
             Console.CursorVisible = false;
             Console.Title = "xd";
             Console.SetWindowSize(200, 80);
-            InputHandler.init();
             ConsoleHelper.InitConsoleOutput();
 
 

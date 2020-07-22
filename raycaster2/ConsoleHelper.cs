@@ -171,6 +171,11 @@ public static class ConsoleHelper
 
     [DllImport("USER32.dll")]
     static public extern short GetKeyState(VirtualKeyStates nVirtKey);
+    
+    static public bool IsKeyPressed(VirtualKeyStates nVirtKey)
+    {
+        return GetKeyState(nVirtKey) == 0x8000;
+    }
 
     public enum VirtualKeyStates : int
     {

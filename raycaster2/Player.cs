@@ -29,9 +29,9 @@ namespace raycaster2
 
         public Vector2 updatePos()
         {
-            List<ConsoleKeyInfo> inputBufferBuffer = new List<ConsoleKeyInfo>(InputHandler.inputBuffer);
             int walkX = 0;
             int walkY = 0;
+            if(ConsoleHelper.GetKeyState(ConsoleHelper.VirtualKeyStates.VK_RIGHT))
             foreach (ConsoleKeyInfo input in inputBufferBuffer)
             {
                 switch (input.Key)
