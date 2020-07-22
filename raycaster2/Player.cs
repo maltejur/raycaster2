@@ -10,8 +10,9 @@ namespace raycaster2
     {
         public Vector2 pos;
         public float ang = 0.0f;
-        public float walkSpeed = 0.2f;
+        public float walkSpeed = 50;
         public float turnSpeed = 2;
+        public float sprintFactor = 2;
 
         public Player()
         {
@@ -28,40 +29,47 @@ namespace raycaster2
             this.pos = pos;
         }
 
-        public Vector2 updatePos()
+        public Vector2 updatePos(TimeSpan DeltaTime)
         {
             float walkX = 0;
             float walkY = 0;
             if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.RIGHT))
             {
-                ang += turnSpeed;
+                ang += turnSpeed * (float)DeltaTime.TotalMilliseconds;
             }
 
             if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.LEFT))
             {
-                ang -= turnSpeed;
+                ang -= turnSpeed * (float)DeltaTime.TotalMilliseconds;
             }
 
             if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_W))
             {
-                walkY += walkSpeed;
+                walkY += walkSpeed * (float)DeltaTime.TotalSeconds;
             }
 
             if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_A))
             {
-                walkX -= walkSpeed;
+                walkX -= walkSpeed * (float)DeltaTime.TotalSeconds;
             }
 
             if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_S))
             {
-                walkY -= walkSpeed;
+                walkY -= walkSpeed * (float)DeltaTime.TotalSeconds;
             }
 
             if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_D))
             {
-                walkX += walkSpeed;
+                walkX += walkSpeed * (float)DeltaTime.TotalSeconds;
             }
-            return Vector2.Add(pos, Vector2.Multiply(Helpers.rotateVector2(new Vector2(walkY, walkX), ang), walkSpeed));
+
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.SHIFT))
+            {
+                walkX *= sprintFactor;
+                walkY *= sprintFactor;
+            }
+
+            return Vector2.Add(pos, Helpers.rotateVector2(new Vector2(walkY, walkX), ang));
         }
     }
 }

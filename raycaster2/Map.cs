@@ -43,10 +43,10 @@ namespace raycaster2
             this.walls = walls;
         }
 
-        public void fixedUpdate()
+        public void update(TimeSpan DeltaTime)
         {
-            Vector2 newPos = player.updatePos();
-            if (!walls[(int)newPos.Y, (int)newPos.X])
+            Vector2 newPos = player.updatePos(DeltaTime);
+            if (newPos.Y >= 0 && newPos.X >= 0 && newPos.Y < height && newPos.X < width && !walls[(int)newPos.Y, (int)newPos.X])
             {
                 player.pos = newPos;
             }

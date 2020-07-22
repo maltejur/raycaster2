@@ -9,7 +9,7 @@ namespace raycaster2
     {
         static Printer printer;
         static Map map1;
-        static DateTime lastUpdate;
+        static DateTime lastUpdate = DateTime.Now;
 
         static void Main(string[] args)
         {
@@ -80,14 +80,7 @@ namespace raycaster2
         {
             while (true)
             {
-                map1.fixedUpdate();
-
-                // Timings
-                int sleepTime = (1000 / 60) - (int)(DateTime.Now - lastUpdate).TotalMilliseconds;
-                if (sleepTime > 0)
-                {
-                    Thread.Sleep(sleepTime);
-                }
+                map1.update((DateTime.Now - lastUpdate));
                 lastUpdate = DateTime.Now;
             }
         }
