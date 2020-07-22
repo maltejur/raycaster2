@@ -10,7 +10,8 @@ namespace raycaster2
     {
         public Vector2 pos;
         public float ang = 0.0f;
-        public float walkSpeed = 0.1f;
+        public float walkSpeed = 0.2f;
+        public float turnSpeed = 2;
 
         public Player()
         {
@@ -29,42 +30,37 @@ namespace raycaster2
 
         public Vector2 updatePos()
         {
-            int walkX = 0;
-            int walkY = 0;
-            if(ConsoleHelper.GetKeyState(ConsoleHelper.VirtualKeyStates.VK_RIGHT))
-            foreach (ConsoleKeyInfo input in inputBufferBuffer)
+            float walkX = 0;
+            float walkY = 0;
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.RIGHT))
             {
-                switch (input.Key)
-                {
-                    case ConsoleKey.RightArrow:
-                        ang += 5;
-                        break;
-
-                    case ConsoleKey.LeftArrow:
-                        ang -= 5;
-                        break;
-
-                    case ConsoleKey.W:
-                        walkY = 1;
-                        break;
-
-                    case ConsoleKey.A:
-                        walkX = -1;
-                        break;
-
-                    case ConsoleKey.S:
-                        walkY = -1;
-                        break;
-
-                    case ConsoleKey.D:
-                        walkX = 1;
-                        break;
-
-                    default:
-                        break;
-                }
+                ang += turnSpeed;
             }
-            InputHandler.inputBuffer.Clear();
+
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.LEFT))
+            {
+                ang -= turnSpeed;
+            }
+
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_W))
+            {
+                walkY += walkSpeed;
+            }
+
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_A))
+            {
+                walkX -= walkSpeed;
+            }
+
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_S))
+            {
+                walkY -= walkSpeed;
+            }
+
+            if (ConsoleHelper.IsKeyPressed(ConsoleHelper.VirtualKeyStates.KEY_D))
+            {
+                walkX += walkSpeed;
+            }
             return Vector2.Add(pos, Vector2.Multiply(Helpers.rotateVector2(new Vector2(walkY, walkX), ang), walkSpeed));
         }
     }
