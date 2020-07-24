@@ -179,5 +179,25 @@ namespace raycaster2
                 buffer[y, x + i] = str[i];
             }
         }
+
+        private string coloredChar(int r, int g, int b)
+        {
+            int colorCode;
+            if (r == g && g == b)
+            {
+                // Greyscale
+                colorCode = 232 + (int)(r / 10.626);
+            }
+            else
+            {
+                r = r / 43;
+                g = g / 43;
+                b = b / 43;
+                colorCode = 16 + 36 * r + 6 * g + b;
+            }
+            return $"\x1b[48;5;{colorCode}m \x1b[0m";
+        }
+
+        
     }
 }
