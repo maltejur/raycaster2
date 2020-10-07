@@ -9,6 +9,7 @@ namespace raycaster2
     {
         static Printer printer;
         static Map map1;
+        static Map map2;
         static DateTime lastUpdate = DateTime.Now;
 
         static void Main(string[] args)
@@ -54,8 +55,13 @@ namespace raycaster2
                 "#           ##              ####",
                 "#              ##              #",
                 "################################",
-        });
+            });
             map1.player.pos.X = 5;
+
+            map2 = Map.ParseTimMap("002 102 2023 214 1134 013 023 032 132 2312 33 222 321 311 30 12", 4, 4);
+            map2.player.pos.X = 3;
+            map2.player.pos.Y = 5;
+
 
             Thread mainLoopThread = new Thread(mainLoop);
             Thread fixedLoopThread = new Thread(fixedLoop);
@@ -69,9 +75,13 @@ namespace raycaster2
             while (true)
             {
                 printer.updateWinSize();
-                printer.raycastMap(map1);
-                printer.generateMiniMap(map1);
+                printer.raycastMap(map2);
+                printer.generateMiniMap(map2);
                 printer.displayFps();
+                if (map2.player.pos.X > 7 && map2.player.pos.Y > 7)
+                {
+                    printer.jumpscare();
+                }
                 printer.draw();
             }
         }
@@ -80,7 +90,7 @@ namespace raycaster2
         {
             while (true)
             {
-                map1.update((DateTime.Now - lastUpdate));
+                map2.update((DateTime.Now - lastUpdate));
                 lastUpdate = DateTime.Now;
             }
         }
